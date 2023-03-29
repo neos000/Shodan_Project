@@ -1,41 +1,27 @@
 #!/usr/bin/env python
-# Dependencies.
-# This script was created by PotOfGreed. It is still in need of changes.
+# Dependencies - Shodan
 import shodan 
 import time
-import sys
-import time
 
-# Main function
-def main():
-    api = shodan.Shodan(sys.argv[1])
-    
-    print('[---] Script created by neos [---]\n[---] Grabbing data...[---]\n')
-    
-    server_list = [
-            'mysql', 'nginx', 'redis',
-            ]
-     
-    element_filters = [
-              'org', 'product', 'ip_str', 
-              'port', 'hostnames',
-            ]
+# Main class
+class Shodan:
+    def __init__(self, key):
+        self.key = key
+
+    def scan_server(self, server):
+        api = shodan.Shodan(self.key)
+        results = api.search(server)
+        for result in results['matches']:
+            print('[*] Organization: %s' % (result['org']))
+            print('[*] SERVER: %s' % (result['product']))
+            print('[*] IPv4: %s' % (result['ip_str']))
+            print('[*] HOSTNAMES: %s' % (result['hostnames']))
+            print('[*] OS: %s' % (result['os']))
+            print('')
+            time.sleep(0.05)
             
-    for srvs in server_list:
-        try:
-            results = api.search(srvs)
-            time.sleep(2)
-            for result in results['matches']:
-                for elements in element_filters:
-                    time.sleep(2)                        
-                    print('[*] %s: %a' % (elements, result[elements]))
-                print('\n')
-        except:
-            print('[*] Error occured...\n')
-
-
-
-
-# Conditional statement: Function call
-if __name__ == '__main__':
-    main()
+    def host_lookup(self, ip):
+        api = shodan.Shodan(self.key)
+        results = api.host(ip)
+        print('I am still working on this...')
+        

@@ -17,17 +17,11 @@ acquire one. Follow the instructions below.
 
 **Basic usage.**
 
-Before running the file, your first argument must be your api key.
+Before running the file, you must create a new instance of the class.
 
-You may change two variables in the script, the 'server_list' array and the 'element_filters' array. 
-The server_list array contains the web hosting providers you wish to scan and the element_filters array contains
-the data you would like to retrieve. Please read the Shodan API documentation if you're given an error such as
-a 'KeyError'.
+`x = Shodan('API KEY HERE')`
 
-`server_list = [
-            '',
-        ]`
-        
-`element_filters = [
-            '',
-        ]`
+To scan a server you must use the 'scan_server()' method.
+
+`x.scan_server('ENTER SERVER PRODUCT')`
+
